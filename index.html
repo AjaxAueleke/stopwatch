@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Tangerine"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    /* #EAEAEA, #09090A, #e5a895, #ba89b9, #e8c8b5, #48484a, #846f70 ,#3d84b8 */
+    body,
+    html,
+    :root {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background-color: #48484a;
+      color: #eaeaea;
+      font-family: "Roboto", sans-serif;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      padding: 2vh 2vw;
+      font-size: 2rem;
+    }
+    nav span {
+      text-align: center;
+      display: block;
+      width: 100%;
+      padding-bottom: 3vh;
+    }
+    nav span:hover {
+      border-bottom: 0.25vh solid #1e90e2;
+      padding-bottom: 2.75vh;
+      cursor: pointer;
+    }
+    div.timer {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+    }
+    div.face {
+      user-select: none;
+      text-align: center;
+      color: #1e90e2;
+      font-weight: bolder;
+      margin: auto;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50vw;
+      box-shadow: rgba(9, 9, 10, 0.3) 10px 25px 50px -12px;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 5rem;
+      border: 2px solid #1e90e2;
+    }
+    span.hr span.min span.sec span.msec {
+      flex-grow: 1;
+    }
+    span.msec {
+      font-size: 2rem;
+      font-weight: lighter;
+      flex-shrink: 5;
+    }
+    div.test {
+      display: flex;
+      justify-content: center;
+      margin: auto;
+      height: 8vh;
+      width: 8vh;
+      border-radius: 50%;
+      border: 2px solid #1e90e2;
+      cursor: pointer;
+      box-shadow: rgba(9, 9, 10, 0.3) 10px 25px 50px -12px;
+    }
+    p.material-icons {
+      border-radius: 50%;
+      background-color: #48484a;
+      color: #1e90e2;
+      font-size: 4rem;
+      text-align: center;
+      width: 100%;
+      margin: auto;
+      user-select: none;
+    }
+    div.time button {
+      align-self: baseline;
+    }
+    button {
+      text-decoration: none;
+      background-color: #48484a;
+      border: none;
+      color: #1e90e2;
+    }
+    img {
+      background-color: #48484a;
+    }
+    #restart {
+      position: absolute;
+      bottom: -8vh;
+      right: 35vw;
+      box-shadow: none;
+      cursor: pointer;
+    }
+    .clicked {
+      border-bottom: 0.25vh solid #1e90e2;
+      padding-bottom: 2.75vh;
+      cursor: pointer;
+    }
+    a{
+      text-decoration: none;
+      color : #eaeaea;
+    }
+  </style>
+  <body>
+    <nav><span><a href = ".\index2.html">Timer</a></span> <span class = "clicked">Stopwatch</span></nav>
+    
+      <div class="timer">
+      <div class="face">
+        <div class="time">
+          <span class="hr">0</span>
+          <span class="hr-dot">:</span>
+          <span class="min">00</span>
+          <span class="min-dots">:</span>
+          <span class="sec">00</span>
+          <span class="msec">00</span>
+        </div>
+      </div>
+      <button id="restart" onclick="reset()">
+        <img src="restart_alt_black_48dp.svg" alt="" />
+      </button>
+    </div>
+    <div class="test" onclick="stopwatch()">
+      <p class="material-icons">play_arrow</p>
+    </div>  
+  </body>
+  <script>
+    let d = document;
+    let msec = d.getElementsByClassName("msec")[0];
+    let sec = d.getElementsByClassName("sec")[0];
+    let min = d.getElementsByClassName("min")[0];
+    let hr = d.getElementsByClassName("hr")[0];
+    let min_dot = d.getElementsByClassName("min-dots")[0];
+    let hr_dot = d.getElementsByClassName("hr-dot")[0];
+    let msec_v = 0;
+    let sec_v = 0;
+    let min_v = 0;
+    let hr_v = 0;
+    let play_btn = d.getElementsByClassName("test")[0];
+    min_dot.style.display = "none";
+    hr_dot.style.display = "none";
+    min.style.display = "none";
+    hr.style.display = "none";
+    function pause() {
+      play_btn.innerHTML = `<p class = "material-icons">play_arrow</p>`;
+      play_btn.setAttribute("onclick", "stopwatch()");
+      clearInterval(interval);
+    }
+    function updateTime() {
+      msec_v++;
+      if (msec_v >= 99) {
+        sec_v++;
+        msec_v = 0;
+      }
+      if (sec_v >= 60) {
+        min_v++;
+        min.style.display = "inline";
+        min_dot.style.display = "inline";
+        sec_v = 0;
+      }
+      if (min_v >= 60) {
+        hr_v++;
+        hr.style.display = "inline";
+        hr_dot.style.display = "inline";
+
+        min_v = 0;
+      }
+      if (msec_v <= 9) {
+        msec.innerHTML = "0" + msec_v;
+      } else {
+        msec.innerHTML = msec_v;
+      }
+      if (sec_v <= 9) {
+        sec.innerHTML = "0" + sec_v;
+      } else {
+        sec.innerHTML = sec_v;
+      }
+      if (min_v <= 9) {
+        min.innerHTML = "0" + min_v;
+      } else {
+        min.innerHTML = min_v;
+      }
+    }
+    let interval;
+    function stopwatch() {
+      play_btn.innerHTML = `<p class="material-icons">pause</p>`;
+      play_btn.setAttribute("onclick", "pause()");
+      interval = setInterval(updateTime, 10);
+    }
+    function reset() {
+      min_dot.style.display = "none";
+      hr_dot.style.display = "none";
+      min.style.display = "none";
+      hr.style.display = "none";
+
+      msec.innerHTML = sec.innerHTML = min.innerHTML = hr.innerHTML = "00";
+      hr.innerHTML = 0;
+      msec_v = sec_v = min_v = hr_v = 0;
+    }
+  </script>
+</html>
