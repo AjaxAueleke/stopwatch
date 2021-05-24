@@ -34,7 +34,40 @@
     }
     /*time's up */
     .time-up {
-      border: 2px solid red;
+      border: 2px solid #1e90e2;
+      box-shadow: -8px -2px 102px 10px rgba(253,253,253,0.8);        
+      animation-name: timeup;
+      animation-duration: 1s;
+      animation-timing-function: cubic-bezier(1,0,0,1);
+      animation-iteration-count: infinite;
+
+    }
+    @keyframes timeup {
+      0% {
+          border: 2px solid #1e90e2;
+      }
+      10% {
+        border : 5px solid  #1e90e2;
+      }
+      30% {
+        border : 10px solid #1e90e2;
+      }
+      50% {
+        border : 20px solid #1e90e2;
+      }
+      60% {
+        border : 20px solid #1e90e2;
+      }
+      70% {
+        border : 10px solid #1e90e2;
+      }
+      80% {
+        border :5px solid #1e90e2;
+      }
+      100% {
+        border : 2px solid #1e90e2;
+      }
+
     }
     nav {
       display: flex;
@@ -184,7 +217,7 @@
       <span><a href=".\index.html">Stopwatch</a></span>
     </nav>
 
-    <div class="timer">
+    <div class=" timer">
       <div class="face">
         <div class="time">
           <span class="hr">0</span>
@@ -292,6 +325,10 @@
       totaltime--;
       console.log("Time ", totaltime);
       if (totaltime < 101) {
+        d.getElementsByClassName('face')[0].className = d.getElementsByClassName('face')[0].className + ' time-up';
+        setTimeout(() => {
+          d.getElementsByClassName('face')[0].className = 'face';
+        }, 5000)
         pause();
         hr_v = min_v = sec_v = msec_v = 0;
         if (msec_v <= 9) {
