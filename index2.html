@@ -34,7 +34,7 @@
     }
     /*time's up */
     .time-up {
-      border : 2px solid red;
+      border: 2px solid red;
     }
     nav {
       display: flex;
@@ -106,9 +106,9 @@
       margin: auto;
       user-select: none;
     }
-    a{
+    a {
       text-decoration: none;
-      color : #eaeaea;
+      color: #eaeaea;
     }
     div.time button {
       align-self: baseline;
@@ -136,17 +136,16 @@
     }
     button#set-timer {
       position: absolute;
-      bottom : -8vh;
-      left : 20vw;
-      width : 20vw;
-      border : 2px solid #1e90e2;
-      font-size : 1.5rem;
-      padding : 15px;
-      border-radius : 10vw;
-
+      bottom: -8vh;
+      left: 20vw;
+      width: 20vw;
+      border: 2px solid #1e90e2;
+      font-size: 1.5rem;
+      padding: 15px;
+      border-radius: 10vw;
     }
     button#set-timer:hover {
-      color : #eaeaea;
+      color: #eaeaea;
       background-color: #1e90e2;
     }
     div#setting {
@@ -154,35 +153,38 @@
       position: absolute;
       height: 100vh;
       width: 100%;
-      top : 0;
-      left : 0;
+      top: 0;
+      left: 0;
       flex-direction: column;
       justify-content: center;
       text-align: center;
       font-size: 3rem;
       background-color: #48484a;
-
     }
     div#setting input {
       background-color: #48484a;
-      border : none;
-      border-bottom : 3px solid #eaeaea;
+      border: none;
+      border-bottom: 3px solid #eaeaea;
       font-size: 3rem;
-      width : 1.5em;
-      margin : 10px;
+      width: 1.5em;
+      margin: 10px;
       caret-color: #eaeaea;
-      font-family: 'Roboto', sans-serif;
-      color : #eaeaea;
+      font-family: "Roboto", sans-serif;
+      color: #eaeaea;
       font-weight: bold;
     }
-    div#setting input:active, div#setting input:focus {
+    div#setting input:active,
+    div#setting input:focus {
       outline: none;
     }
   </style>
   <body>
-    <nav><span class = "clicked">Timer</span> <span ><a href = ".\index.html">Stopwatch</a></span></nav>
-    
-      <div class="timer">
+    <nav>
+      <span class="clicked">Timer</span>
+      <span><a href=".\index.html">Stopwatch</a></span>
+    </nav>
+
+    <div class="timer">
       <div class="face">
         <div class="time">
           <span class="hr">0</span>
@@ -192,25 +194,27 @@
           <span class="sec">00</span>
           <span class="msec">00</span>
         </div>
-
       </div>
       <button id="restart" onclick="reset()">
         <img src="restart_alt_black_48dp.svg" alt="" />
-        
       </button>
-      <button id = "set-timer" onclick = "setTimer()">Set Timer</button>
+      <button id="set-timer" onclick="setTimer()">Set Timer</button>
     </div>
     <div class="test" onclick="stopwatch()">
       <p class="material-icons">play_arrow</p>
     </div>
-    <div id = "setting">
+    <div id="setting">
       <div>
-      <input type="text" name="hr" id="hours-set">hr<input type = "text" name = "min" id = "min-set">min<input type = "text" name = "sec" id = "sec-set">s
-    </div>
+        <input type="text" name="hr" id="hours-set" />hr<input
+          type="text"
+          name="min"
+          id="min-set"
+        />min<input type="text" name="sec" id="sec-set" />s
+      </div>
     </div>
   </body>
   <script>
-        let d = document; //to make things easier for me 
+    let d = document; //to make things easier for me
     let totaltime = 0;
     let msec = d.getElementsByClassName("msec")[0];
     let sec = d.getElementsByClassName("sec")[0];
@@ -227,14 +231,10 @@
     hr_dot.style.display = "none";
     min.style.display = "none";
     hr.style.display = "none";
-    let input_time = d.getElementById('setting');
-    let hrs_set = d.getElementById('hours-set');
-    let min_set = d.getElementById('min-set');
-    let sec_set = d.getElementById('sec-set');
-
-
-
-
+    let input_time = d.getElementById("setting");
+    let hrs_set = d.getElementById("hours-set");
+    let min_set = d.getElementById("min-set");
+    let sec_set = d.getElementById("sec-set");
 
     function pause() {
       play_btn.innerHTML = `<p class = "material-icons">play_arrow</p>`;
@@ -242,108 +242,146 @@
       clearInterval(interval);
     }
 
-
-    window.addEventListener("keypress",function(e) {
-      if (e.keyCode === 13 && input_time.style.display !== 'none') {
-        console.log(hrs_set.value === '')
-       hr_v = parseInt(hrs_set.value === ''? 0 : hrs_set.value);min_v = parseInt(min_set.value === ''? 0 : min_set.value); sec_v = parseInt(sec_set.value === ''? 0 : sec_set.value);
-      input_time.style.display = 'none';
-      totaltime = hr_v * 60 *60 + min_v * 60  + sec_v;
-      totaltime = totaltime * 100;
+    window.addEventListener("keypress", function (e) {
+      if (e.keyCode === 13 && input_time.style.display !== "none") {
+        console.log(hrs_set.value === "");
+        hr_v = parseInt(hrs_set.value === "" ? 0 : hrs_set.value);
+        min_v = parseInt(min_set.value === "" ? 0 : min_set.value);
+        sec_v = parseInt(sec_set.value === "" ? 0 : sec_set.value);
+        input_time.style.display = "none";
+        totaltime = hr_v * 60 * 60 + min_v * 60 + sec_v;
+        totaltime = totaltime * 100;
         totaltime += msec_v;
-      if (msec_v <= 9) {
-        msec.innerHTML = "0" + msec_v;
+        if (msec_v <= 9) {
+          msec.innerHTML = "0" + msec_v;
+        } else {
+          msec.innerHTML = msec_v;
+        }
 
-      } else{
-        msec.innerHTML = msec_v;
+        if (sec_v <= 9) {
+          sec.innerHTML = "0" + sec_v;
+        } else {
+          sec.innerHTML = sec_v;
+        }
+        if (min_v <= 9 && min_v > 0) {
+          min.innerHTML = "0" + min_v;
+          min.style.display = "inline";
+          min_dot.style.display = "inline";
+        } else if (min_v >= 10) {
+          min.innerHTML = min_v;
+          min.style.display = "inline";
+          min_dot.style.display = "inline";
+        } else {
+          min.innerHTML = min_v;
+        }
+        if (hr_v <= 9 && hr_v > 0) {
+          hr.innerHTML = "0" + hr_v;
+          hr.style.display = "inline";
+          hr_dot.style.display = "inline";
+        } else if (min_v >= 10) {
+          hr.innerHTML = hr_v;
+          hr.style.display = "inline";
+          hr_dot.style.display = "inline";
+        } else {
+          hr.innerHTML = hr_v;
+        }
       }
-      
-      if (sec_v <= 9) {
-        sec.innerHTML = "0" + sec_v;
-
-      } else {
-        sec.innerHTML = sec_v;
-      }
-      if (min_v <= 9 && min_v > 0) {
-        min.innerHTML = "0" + min_v;
-        min.style.display = 'inline';
-        min_dot.style.display = 'inline';
-      } else if(min_v >= 10){
-        min.innerHTML = min_v;
-        min.style.display = 'inline';
-        min_dot.style.display = 'inline';
-      } else {
-        min.innerHTML = min_v;
-      }
-      if (hr_v <= 9 && hr_v > 0) {
-        hr.innerHTML = "0" + hr_v;
-        hr.style.display = 'inline';
-        hr_dot.style.display = 'inline';
-      } else if(min_v >= 10){
-        hr.innerHTML = hr_v;
-        hr.style.display = 'inline';
-        hr_dot.style.display = 'inline';
-      } else {
-        hr.innerHTML = hr_v;
-      }
-      }
-    })
-
+    });
 
     function updateTime() {
       totaltime--;
-      console.log("Time " ,totaltime);
-      if(totaltime < 101) {
-  pause();
-  hr_v = min_v = sec_v = msec_v = 0;
-}
-      console.log("hr : ", hr_v,"min :", min_v, "sec :", sec_v,"  msec", msec_v);
+      console.log("Time ", totaltime);
+      if (totaltime < 101) {
+        pause();
+        hr_v = min_v = sec_v = msec_v = 0;
+        if (msec_v <= 9) {
+          msec.innerHTML = "0" + msec_v;
+        } else {
+          msec.innerHTML = msec_v;
+        }
+
+        if (sec_v <= 9) {
+          sec.innerHTML = "0" + sec_v;
+        } else {
+          sec.innerHTML = sec_v;
+        }
+        if (min_v <= 9 && min_v > 0) {
+          min.innerHTML = "0" + min_v;
+          min.style.display = "inline";
+          min_dot.style.display = "inline";
+        } else if (min_v >= 10) {
+          min.innerHTML = min_v;
+          min.style.display = "inline";
+          min_dot.style.display = "inline";
+        } else {
+          min.innerHTML = min_v;
+        }
+        if (hr_v <= 9 && hr_v > 0) {
+          hr.innerHTML = "0" + hr_v;
+          hr.style.display = "inline";
+          hr_dot.style.display = "inline";
+        } else if (min_v >= 10) {
+          hr.innerHTML = hr_v;
+          hr.style.display = "inline";
+          hr_dot.style.display = "inline";
+        } else {
+          hr.innerHTML = hr_v;
+        }
+      }
+      console.log(
+        "hr : ",
+        hr_v,
+        "min :",
+        min_v,
+        "sec :",
+        sec_v,
+        "  msec",
+        msec_v
+      );
       msec_v--;
 
-
-      if (msec_v <= 0) {
-        console.log("MS : ",msec_v,"SEC : ", sec_v,"min", min_v); 
+      if (msec_v < 0) {
+        console.log("MS : ", msec_v, "SEC : ", sec_v, "min", min_v);
         sec_v--;
-         
+
         msec_v = 99;
-      }
-      if (sec_v <= 0) {
-        
-        min_v--;
-       
-        min.style.display = "inline";
-        min_dot.style.display = "inline";
-        sec_v = 59;
-      }
-      if (min_v <= 0) {
-        
-        hr_v--;
-       
-        hr.style.display = "inline";
-        hr_dot.style.display = "inline";
+      } else {
+        if (sec_v < 0) {
+          min_v--;
 
-        min_v = 60;
-      }
-      if (msec_v <= 9) {
-        msec.innerHTML = "0" + msec_v;
-      } else {
-        msec.innerHTML = msec_v;
-      }
-      if (sec_v <= 9) {
-        sec.innerHTML = "0" + sec_v;
-      } else {
-        sec.innerHTML = sec_v;
-      }
-      if (min_v <= 9) {
-        min.innerHTML = "0" + min_v;
-      } else if(min_v === 0) {
-        min.innerHTML = min_v;
-      } else {
-       min.innerHTML = min_v;
+          min.style.display = "inline";
+          min_dot.style.display = "inline";
+          sec_v = 59;
+        } else {
+          if (min_v < 0) {
+            hr_v--;
 
+            hr.style.display = "inline";
+            hr_dot.style.display = "inline";
+
+            min_v = 60;
+          }
+          if (msec_v < 9) {
+            msec.innerHTML = "0" + msec_v;
+          } else {
+            msec.innerHTML = msec_v;
+          }
+          if (sec_v < 9) {
+            sec.innerHTML = "0" + sec_v;
+          } else {
+            sec.innerHTML = sec_v;
+          }
+          if (min_v < 9) {
+            min.innerHTML = "0" + min_v;
+          } else if (min_v === 0) {
+            min.innerHTML = min_v;
+          } else {
+            min.innerHTML = min_v;
+          }
+        }
       }
     }
-  
+
     let interval;
     function stopwatch() {
       play_btn.innerHTML = `<p class="material-icons">pause</p>`;
@@ -360,8 +398,8 @@
       hr.innerHTML = 0;
       msec_v = sec_v = min_v = hr_v = 0;
     }
-    function setTimer(){
-      input_time.style.display = 'flex';
+    function setTimer() {
+      input_time.style.display = "flex";
     }
   </script>
 </html>
