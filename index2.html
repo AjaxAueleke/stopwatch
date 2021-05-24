@@ -32,6 +32,10 @@
       color: #eaeaea;
       font-family: "Roboto", sans-serif;
     }
+    /*time's up */
+    .time-up {
+      border : 2px solid red;
+    }
     nav {
       display: flex;
       justify-content: space-around;
@@ -291,6 +295,7 @@
       console.log("Time " ,totaltime);
       if(totaltime < 101) {
   pause();
+  hr_v = min_v = sec_v = msec_v = 0;
 }
       console.log("hr : ", hr_v,"min :", min_v, "sec :", sec_v,"  msec", msec_v);
       msec_v--;
